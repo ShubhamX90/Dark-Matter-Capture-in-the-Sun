@@ -24,7 +24,8 @@ interpolate_func = interp1d(vel_dist_file['Velocity_Range'], vel_dist_file['Velo
 # Finding the normalization
 ############################
 
-integral = np.trapz(interpolate_func(vel_dist_file['Velocity_Range']), vel_dist_file['Velocity_Range'])
+integrand = interpolate_func(vel_dist_file['Velocity_Range']) * (vel_dist_file['Velocity_Range'] ** 2)
+integral = np.trapz(integrand, vel_dist_file['Velocity_Range'])
 normalized_distribution = interpolate_func(vel_dist_file['Velocity_Range']) / integral
 
 print("Normalization factor:", integral)

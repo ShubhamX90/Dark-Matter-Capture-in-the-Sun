@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from scipy import interpolate
 
-from .Constants import *
-from .AtomicData import *
-from .Conversions import *
+from Constants import *
+from AtomicData import *
+from Conversions import *
 
 
 ##########################
@@ -170,6 +170,14 @@ for i in range(0,len(radius_List)):          #|
     escVel2_List.append(escVel_Func(i, enclosedMass_List, radius_List, deltaR_List))  #|
     
 escVel2_List[0] = escVel2_List[1] # Set the i=0 and i=1 escape velocities equal 
+
+# Create a DataFrame
+data = {'Radius': radius_List, 'Escape_Velocity': escVel2_List}
+df = pd.DataFrame(data)
+
+# Save the DataFrame to a CSV file
+df.to_csv('escVel_vs_radius.csv', index=False)
+
 
 
 ##########################

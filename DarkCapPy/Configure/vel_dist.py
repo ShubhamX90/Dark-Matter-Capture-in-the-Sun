@@ -54,3 +54,13 @@ print("Normalized distribution:")
 print("Velocity Range\tNormalized Distribution")
 for Velocity_Range, VelocityDist_Planet_Frame in zip(vel_dist_file['Velocity_Range'], normalized_distribution):
     print(f"{Velocity_Range}\t{VelocityDist_Planet_Frame}")
+
+# Create a new DataFrame for the normalized data
+normalized_data = pd.DataFrame({'Velocity_Range': vel_dist_file['Velocity_Range'],
+                                'Normalized_Distribution': normalized_distribution})
+
+# Save the DataFrame to a new CSV file
+output_file_path = os.path.join(this_dir, "Normalized_Velocity_Distribution.csv")
+normalized_data.to_csv(output_file_path, index=False)
+
+print(f"Normalized velocity distribution data saved to: {output_file_path}")

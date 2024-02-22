@@ -72,7 +72,7 @@ def Velocity_Energy_Integral(element, m_X, index_esVel):
 	uLow = 0
 	uHigh = min(uInt, V_gal) # We take the minimal value between the intersection velocity and galactic escape velocity
 	eLow = lambda u: E_min(u, m_X)
-	eHigh = lambda u: E_max(element, m_X, index_esVel, u)
+	eHigh = lambda u: E_max(element, m_X, u, index_esVel)
 	integral = integrate.dblquad(integrand, uLow, uHigh, eLow, eHigh)[0]
 	return integral
 
@@ -112,19 +112,20 @@ def cCap(m_X):
 		totalCap += elementCap 
 	return totalCap
 
-def plot_capture_rate():
-    m_X_values = np.linspace(1, 100, 100)  # Set the range of m_X values for the plot
-    total_cap_values = []
 
-    for m_X in m_X_values:
-        total_cap = cCap(m_X)
-        total_cap_values.append(total_cap)
+m_X_values = np.linspace(1, 100, 5)  # Set the range of m_X values for the plot
+total_cap_values = []
 
-    # Plotting
-    plt.plot(m_X_values, total_cap_values, label='Total Capture Rate')
-    plt.xlabel('m_X (GeV)')
-    plt.ylabel('Total Capture Rate')
-    plt.title('Dark Matter Capture Rate in the Sun')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+for m_X in m_X_values:
+    total_cap = cCap(m_X)
+    total_cap_values.append(total_cap)
+
+# Plotting
+plt.plot(m_X_values, total_cap_values, label='Total Capture Rate')
+plt.xlabel('m_X (GeV)')
+plt.ylabel('Total Capture Rate')
+plt.title('Dark Matter Capture Rate in the Sun')
+plt.legend()
+plt.grid(True)
+plt.show()
+

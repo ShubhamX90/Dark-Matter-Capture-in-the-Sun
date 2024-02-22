@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from scipy import interpolate
 
-from Constants import *
-from AtomicData import *
-from Conversions import *
+from DarkCapPy.Configure.Constants import *
+from DarkCapPy.Configure.AtomicData import *
+from DarkCapPy.Configure.Conversions import *
 
 
 ##########################
@@ -125,7 +125,6 @@ def numDensity_Func(element):
 
 
 
-
 ##########################
 # Escape Velocity
 ##########################
@@ -204,4 +203,26 @@ fCrossInterp = interpolate.interp1d(velRange, fCrossVect, kind ='linear')
 # Earth_escVel2Interp = interpolate.interp1d(radius_List, escVel2_List, kind='linear')           
 # Earth_densityInterp = interpolate.interp1d(radius_List,Earth_density_List,kind='linear')
 
+# Number Density of each element
+def numDensity_Func(element, element_name):
+    numDensityList = []
+    for i in range(0, len(shellDensity_List)):
+        mf = Planet_File[element_name][i]
+        numDensityList.append(mf * g2GeV(shellDensity_List[i]) / amu2GeV(atomicNumbers[element]))
+    return numDensityList
 
+# Specify the element name for which you want to create the CSV file
+element_name = "Mg"
+
+# Generate the number density list for the specified element
+numDensity_Mg_List = numDensity_Func(element_name,element_name)
+
+# Create a DataFrame
+data_element = {'Radius': radius_List, f'NumDensity_{element_name}': numDensity_Mg_List}
+df_element = pd.DataFrame(data_element)
+
+# Save the DataFrame to a CSV file
+output_file_path_element = f'NumDensity_{element_name}_vs_radius.csv'
+df_element.to_csv(output_file_path_element, index=False)
+
+print(f"Number density data for {element_name} saved to: {output_file_path_element}")

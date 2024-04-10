@@ -39,8 +39,8 @@ def crossSection(element, m_X, E_R): # returns 1/GeV^3
 
 	m_N = amu2GeV(atomicNumbers[element]) ##### really required??
 	FN2 = formFactor2(element, E_R)
-	mu = m_N*m_X / (m_N + m_X)
-	function = ( ( FN2 ) * (atomicNumbers[element]**2) )  /   (2*((mu)**2))    ##### excluded w^-2  and  m_N 
+	
+	function = ( ( FN2 ) * (atomicNumbers[element]**2) )    ##### excluded w^-2  and  m_N and mu_XP and sigma_O_SI
 	return function
 
 
@@ -151,10 +151,13 @@ def sumOverR(element, m_X):
 def singleElementCap(element, m_X):
 
 	n_X = 0.3/m_X # GeV/cm^3
+	m_P = amu2GeV(1)
 
 	conversion = (5.06e13)**-3 * (1.52e24) # Conversion to seconds (cm^-3)(GeV^-2) -> (s^-1)  ###### WHY NEEDED ????
 	prefactors = (4*np.pi)**2     ######### DOUBT 
-	function = n_X * conversion * (10^(-44)) * prefactors * sumOverR(element, m_X)
+	mu_XP = m_P*m_X / (m_P + m_X)
+	
+	function = n_X * conversion * (10^(-44)) * prefactors * sumOverR(element, m_X) /   (2*((mu_XP)**2))  
 	return function
 
 

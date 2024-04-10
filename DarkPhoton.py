@@ -35,9 +35,8 @@ def formFactor2(element, E_R):
 ########################
 
 
-def crossSection(element, m_X, E_R): # returns 1/GeV^3
+def crossSection(element, E_R): # returns 1/GeV^3
 
-	m_N = amu2GeV(atomicNumbers[element]) ##### really required??
 	FN2 = formFactor2(element, E_R)
 	
 	function = ( ( FN2 ) * (atomicNumbers[element]**2) )    ##### excluded w^-2  and  m_N and mu_XP and sigma_O_SI

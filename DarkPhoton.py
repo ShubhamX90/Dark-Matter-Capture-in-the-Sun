@@ -156,7 +156,7 @@ def singleElementCap(element, m_X):
 	prefactors = (4*np.pi)**2     ######### DOUBT 
 	mu_XP = m_P*m_X / (m_P + m_X)
 	
-	function = n_X * conversion * (10^(-44)) * prefactors * sumOverR(element, m_X) /   (2*((mu_XP)**2))  
+	function = n_X * conversion * (10**(-44)) * prefactors * sumOverR(element, m_X) /   (2*((mu_XP)**2))  
 	return function
 
 
